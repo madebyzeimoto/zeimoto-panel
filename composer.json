@@ -1,0 +1,25 @@
+{
+  "name": "zeimoto/panel",
+  "description": "Content-language indicators and validation highlights for the Kirby Panel.",
+  "type": "kirby-plugin",
+  "license": "MIT",
+  "keywords": [
+    "kirby",
+    "kirby5",
+    "zeimoto",
+    "panel"
+  ],
+  "authors": [
+    {
+      "name": "zeimoto"
+    }
+  ],
+  "require": {
+    "php": "^8.5",
+    "getkirby/cms": "^5.6.1",
+    "getkirby/composer-installer": "^1.2.1"
+  },
+  "extra": {
+    "installer-name": "zeimoto-panel"
+  }
+}
