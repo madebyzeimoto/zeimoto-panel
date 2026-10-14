@@ -30,7 +30,7 @@ window.fetch = async (...args) => {
   let save = null
 
   if (api && endpoint && method === "POST") {
-    const base = new URL(`${endpoint.replace(/\/$/, "")}/${api}/changes/`, window.location.href)
+    const base = new URL(`${endpoint.replace(/\/$/, "")}/${api.replace(/^\/+/, "")}/changes/`, window.location.href)
     const target = new URL(isRequest ? input.url : input, window.location.href)
     if (
       target.origin === base.origin &&

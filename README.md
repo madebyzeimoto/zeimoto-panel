@@ -57,7 +57,9 @@ internals and must be reviewed after Kirby upgrades:
 - Content saves/publishes use POST to `<model-api>/changes/save` and
   `<model-api>/changes/publish`, with `x-language` carrying the content language.
 - `panel.api.endpoint` and `panel.view.props.api` identify the API base and current
-  model; view props identity is used to reject stale navigation responses.
+  model. Kirby prefixes the model API path with `/`; the plugin removes that
+  leading slash when joining the paths. View props identity is used to reject
+  stale navigation responses.
 - Failed validation has `{ details: { fieldName: { label, message } } }` shape.
 - Model tabs expose `columns → sections → fields`; the core badge computation
   still counts changed field names against lowercased blueprint field names.

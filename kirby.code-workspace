@@ -8,6 +8,7 @@
   "settings": {
     /* Workspace */
     "npm.packageManager": "npm",
+    "workbench.colorTheme": "Dracula Theme",
 
     /* Formatting */
     "editor.defaultFormatter": "esbenp.prettier-vscode",
