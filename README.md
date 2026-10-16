@@ -92,3 +92,11 @@ plugin with:
 ```sh
 node tools/check-style.mjs --plugin site/plugins/zeimoto-panel
 ```
+
+## Behavior tests
+
+Run `composer install` and `composer test` from this repository. Tests boot Kirby
+with disposable runtime directories and never load project secrets or send real
+mail. The host kit can also run this suite with `composer test:plugins`.
+
+Run `node --test tests/*.test.mjs` for the owned JavaScript behavior tests.
