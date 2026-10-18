@@ -3,7 +3,8 @@
 `zeimoto/panel` provides a persistent active-content-language indicator and red
 tab highlights for failed field validation, alongside Kirby's change-count badges.
 It owns general Panel UX; field editors, icons, and frontend styling belong to
-other plugins or the host project. No separate build is required.
+other plugins or the host project. No separate build is required. The language indicator uses a render function
+and supports `panel.vue.compiler: false`.
 
 ## Installation
 

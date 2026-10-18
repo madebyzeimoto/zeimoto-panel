@@ -81,25 +81,29 @@ panel.plugin("zeimoto/panel", {
       // Mirrors Kirby's top-bar template and adds the active content language
       // to its stable signals region. This is intentionally a small extension
       // rather than a separate floating UI so it follows every Panel view.
-      template: `
-        <div class="k-topbar">
-          <k-button class="k-panel-menu-proxy" icon="bars" @click="$panel.menu.toggle()" />
-          <k-breadcrumb class="k-topbar-breadcrumb" :crumbs="crumbs" />
-          <div class="k-topbar-spacer"></div>
-          <div class="k-topbar-signals">
-            <span
-              v-if="$panel.multilang && $panel.language.code"
-              class="k-zeimoto-language-indicator"
-              :title="'Editing content in ' + contentLanguageLabel"
-            >
-              <span class="k-zeimoto-language-indicator-label">Editing</span>
-              <strong>{{ contentLanguageLabel }}</strong>
-              <span class="k-zeimoto-language-indicator-code">{{ $panel.language.code.toUpperCase() }}</span>
-            </span>
-            <slot />
-          </div>
-        </div>
-      `,
+      render(h) {
+        const language = this.$panel.language
+        const indicator = this.$panel.multilang && language.code
+          ? h("span", {
+              class: "k-zeimoto-language-indicator",
+              attrs: { title: "Editing content in " + this.contentLanguageLabel },
+            }, [
+              h("span", { class: "k-zeimoto-language-indicator-label" }, "Editing"),
+              h("strong", this.contentLanguageLabel),
+              h("span", { class: "k-zeimoto-language-indicator-code" }, language.code.toUpperCase()),
+            ])
+          : null
+        return h("div", { class: "k-topbar" }, [
+          h("k-button", {
+            class: "k-panel-menu-proxy",
+            props: { icon: "bars" },
+            on: { click: () => this.$panel.menu.toggle() },
+          }),
+          h("k-breadcrumb", { class: "k-topbar-breadcrumb", props: { crumbs: this.crumbs } }),
+          h("div", { class: "k-topbar-spacer" }),
+          h("div", { class: "k-topbar-signals" }, [indicator, ...(this.$slots.default ?? [])]),
+        ])
+      },
     },
     "k-model-tabs": {
       extends: "k-model-tabs",
