@@ -20,7 +20,7 @@ const setup = (fetch = async () => Response.json({ details: { heroTitle: { messa
     events: { emit: (...args) => events.push(args) }, plugin: (_name, config) => { extension = config },
   }
   const window = { fetch, location: { href: "http://localhost/io" } }
-  vm.runInNewContext(source, { window, panel, URL, Request, Headers, console })
+  vm.runInNewContext(source.replace(/^import .*$/m, ""), { window, panel, URL, Request, Headers, console })
   return { panel, window, events, tabs: extension.components["k-model-tabs"] }
 }
 const submit = (window, url = "http://localhost/api/pages/about/changes/save", language = "en") =>
