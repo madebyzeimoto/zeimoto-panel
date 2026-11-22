@@ -103,7 +103,7 @@ panel.plugin("zeimoto/panel", {
           }),
           h("k-breadcrumb", { class: "k-topbar-breadcrumb", crumbs: this.crumbs }),
           h("div", { class: "k-topbar-spacer" }),
-          h("div", { class: "k-topbar-signals" }, [indicator, ...(this.$slots.default ?? [])]),
+          h("div", { class: "k-topbar-signals" }, [indicator, ...(this.$slots.default?.() ?? [])]),
         ])
       },
     },
