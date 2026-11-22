@@ -9,6 +9,8 @@
 //
 // ==========================================================
 
+import { h } from "vue"
+
 // Warn-once latch: a Kirby update that changes the tab shape
 // should surface loudly on first Panel load, not silently.
 let tabShapeWarned = false
@@ -81,12 +83,12 @@ panel.plugin("zeimoto/panel", {
       // Mirrors Kirby's top-bar template and adds the active content language
       // to its stable signals region. This is intentionally a small extension
       // rather than a separate floating UI so it follows every Panel view.
-      render(h) {
+      render() {
         const language = this.$panel.language
         const indicator = this.$panel.multilang && language.code
           ? h("span", {
               class: "k-zeimoto-language-indicator",
-              attrs: { title: "Editing content in " + this.contentLanguageLabel },
+              title: "Editing content in " + this.contentLanguageLabel,
             }, [
               h("span", { class: "k-zeimoto-language-indicator-label" }, "Editing"),
               h("strong", this.contentLanguageLabel),
@@ -96,10 +98,10 @@ panel.plugin("zeimoto/panel", {
         return h("div", { class: "k-topbar" }, [
           h("k-button", {
             class: "k-panel-menu-proxy",
-            props: { icon: "bars" },
-            on: { click: () => this.$panel.menu.toggle() },
+            icon: "bars",
+            onClick: () => this.$panel.menu.toggle(),
           }),
-          h("k-breadcrumb", { class: "k-topbar-breadcrumb", props: { crumbs: this.crumbs } }),
+          h("k-breadcrumb", { class: "k-topbar-breadcrumb", crumbs: this.crumbs }),
           h("div", { class: "k-topbar-spacer" }),
           h("div", { class: "k-topbar-signals" }, [indicator, ...(this.$slots.default ?? [])]),
         ])
@@ -115,7 +117,7 @@ panel.plugin("zeimoto/panel", {
       created() {
         panel.events.on("zeimoto.form.errors", this.setErrorFields)
       },
-      destroyed() {
+      unmounted() {
         panel.events.off("zeimoto.form.errors", this.setErrorFields)
       },
       watch: {

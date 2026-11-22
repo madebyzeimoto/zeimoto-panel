@@ -8,7 +8,7 @@ and supports `panel.vue.compiler: false`.
 
 ## Installation
 
-Requires PHP 8.5 and Kirby 5.6.1 or later within Kirby 5.
+Requires PHP 8.5 and Kirby 6.
 The Composer package is `zeimoto/panel` and installs into
 `site/plugins/zeimoto-panel`. Release versions come from Git tags.
 
@@ -52,7 +52,7 @@ reactive language changes and is hidden for single-language installations.
 
 ## Compatibility checks
 
-The overrides were checked against installed Kirby 5.6.1. They depend on Panel
+The overrides were checked against Kirby 6. They depend on Panel
 internals and must be reviewed after Kirby upgrades:
 
 - Content saves/publishes use POST to `<model-api>/changes/save` and
