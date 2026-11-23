@@ -9,7 +9,7 @@
 //
 // ==========================================================
 
-import { h } from "vue"
+import { h, resolveComponent } from "vue"
 
 // Warn-once latch: a Kirby update that changes the tab shape
 // should surface loudly on first Panel load, not silently.
@@ -104,6 +104,8 @@ panel.plugin("zeimoto/panel", {
       // to its stable signals region. This is intentionally a small extension
       // rather than a separate floating UI so it follows every Panel view.
       render() {
+        const Button = resolveComponent("k-button")
+        const Breadcrumb = resolveComponent("k-breadcrumb")
         const language = this.$panel.language
         const view = this.view ?? {}
         const crumbs = [
@@ -126,12 +128,12 @@ panel.plugin("zeimoto/panel", {
             ])
           : null
         return h("div", { class: "k-topbar" }, [
-          h("k-button", {
+          h(Button, {
             class: "k-panel-menu-proxy",
             icon: "bars",
             onClick: () => this.$panel.menu.toggle(),
           }),
-          h("k-breadcrumb", { class: "k-topbar-breadcrumb", crumbs }),
+          h(Breadcrumb, { class: "k-topbar-breadcrumb", crumbs }),
           h("div", { class: "k-topbar-spacer" }),
           h("div", { class: "k-topbar-signals" }, [indicator, ...(this.$slots.default?.() ?? [])]),
         ])
