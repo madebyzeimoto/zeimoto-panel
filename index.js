@@ -105,6 +105,16 @@ panel.plugin("zeimoto/panel", {
       // rather than a separate floating UI so it follows every Panel view.
       render() {
         const language = this.$panel.language
+        const view = this.view ?? {}
+        const crumbs = [
+          {
+            link: view.link,
+            label: view.label ?? view.breadcrumbLabel,
+            icon: view.icon,
+            loading: this.isLoading,
+          },
+          ...(this.breadcrumb ?? []),
+        ]
         const indicator = this.$panel.multilang && language.code
           ? h("span", {
               class: "k-zeimoto-language-indicator",
@@ -121,7 +131,7 @@ panel.plugin("zeimoto/panel", {
             icon: "bars",
             onClick: () => this.$panel.menu.toggle(),
           }),
-          h("k-breadcrumb", { class: "k-topbar-breadcrumb", crumbs: this.crumbs }),
+          h("k-breadcrumb", { class: "k-topbar-breadcrumb", crumbs }),
           h("div", { class: "k-topbar-spacer" }),
           h("div", { class: "k-topbar-signals" }, [indicator, ...(this.$slots.default?.() ?? [])]),
         ])
