@@ -75,7 +75,27 @@ panel.plugin("zeimoto/panel", {
   components: {
     "k-topbar": {
       extends: "k-topbar",
+      props: {
+        breadcrumb: Array,
+        view: Object,
+      },
+      data() {
+        return {
+          isLoading: false,
+        }
+      },
       computed: {
+        crumbs() {
+          return [
+            {
+              link: this.view.link,
+              label: this.view.label ?? this.view.breadcrumbLabel,
+              icon: this.view.icon,
+              loading: this.isLoading,
+            },
+            ...this.breadcrumb,
+          ]
+        },
         contentLanguageLabel() {
           return this.$panel.language.name ?? this.$panel.language.code?.toUpperCase()
         },

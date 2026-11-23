@@ -21,10 +21,25 @@ const setup = (fetch = async () => Response.json({ details: { heroTitle: { messa
   }
   const window = { fetch, location: { href: "http://localhost/io" } }
   vm.runInNewContext(source.replace(/^import .*$/m, ""), { window, panel, URL, Request, Headers, console })
-  return { panel, window, events, tabs: extension.components["k-model-tabs"] }
+  return { panel, window, events, topbar: extension.components["k-topbar"], tabs: extension.components["k-model-tabs"] }
 }
 const submit = (window, url = "http://localhost/api/pages/about/changes/save", language = "en") =>
   window.fetch(url, { method: "POST", headers: { "x-language": language } })
+
+test("topbar preserves Kirby breadcrumbs", () => {
+  const { topbar } = setup()
+  const crumbs = topbar.computed.crumbs.call({
+    breadcrumb: [{ link: "/pages/about/team", label: "Team" }],
+    isLoading: false,
+    view: { link: "/pages/about", label: "About" },
+  })
+  assert.equal(crumbs.length, 2)
+  assert.equal(crumbs[0].link, "/pages/about")
+  assert.equal(crumbs[0].label, "About")
+  assert.equal(crumbs[0].loading, false)
+  assert.equal(crumbs[1].link, "/pages/about/team")
+  assert.equal(crumbs[1].label, "Team")
+})
 
 test("matching validation emits fields and preserves the readable response", async () => {
   const { window, events } = setup()
